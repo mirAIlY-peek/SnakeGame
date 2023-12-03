@@ -1,0 +1,46 @@
+@startuml
+class hellofx.HelloFX {
+- {static} int TILE_SIZE
+- {static} int GRID_SIZE
+- {static} int SPEED
+- LinkedList<Coordinate> snake
+- Coordinate food
+- Direction direction
+- boolean gameOver
+- int score
++ {static} void main(String[])
++ void start(Stage)
+- void createSnake()
+- void spawnFood()
+- void updateGame()
+- void moveSnake()
+- void checkCollision()
+- void checkFood()
+- void handleKeyPress(KeyCode)
+- void render(GraphicsContext)
+- void showGameOverAlert()
+- void resetGame()
+}
+class hellofx.HelloFX$Coordinate {
+- int x
+- int y
++ int getX()
++ int getY()
++ boolean equals(Object)
++ int hashCode()
+}
+enum hellofx.Direction {
++  UP
++  DOWN
++  LEFT
++  RIGHT
+- int x
+- int y
++ int getX()
++ int getY()
+}
+
+
+javafx.application.Application <|-- hellofx.HelloFX
+hellofx.HelloFX +.. hellofx.HelloFX$Coordinate
+@enduml
