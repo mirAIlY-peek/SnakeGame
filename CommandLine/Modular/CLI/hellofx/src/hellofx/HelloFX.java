@@ -14,6 +14,10 @@ import java.util.Random;
 
 
 
+
+
+
+
 public class HelloFX extends Application {
     private static final int TILE_SIZE = 20;
     private static final int GRID_SIZE = 30;
@@ -24,6 +28,7 @@ public class HelloFX extends Application {
     private Direction direction;
     private boolean gameOver;
     private int score;
+    private int main;
 
     public static void main(String[] args) {
         launch(args);
