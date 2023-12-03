@@ -15,9 +15,6 @@ import java.util.Random;
 
 
 
-
-
-
 public class HelloFX extends Application {
     private static final int TILE_SIZE = 20;
     private static final int GRID_SIZE = 30;
@@ -153,18 +150,41 @@ public class HelloFX extends Application {
         gc.clearRect(0, 0, GRID_SIZE * TILE_SIZE, GRID_SIZE * TILE_SIZE);
 
         // Draw Snake
-        gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(1);
+
+        boolean isHead = true;
+
         for (Coordinate segment : snake) {
-            gc.fillRect(segment.getX() * TILE_SIZE, segment.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+            gc.strokeRect(segment.getX() * TILE_SIZE, segment.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
+
+
+            // Рисуем прямоугольник для каждого сегмента с заливкой
+            if (isHead) {
+                gc.setFill(Color.RED);  // Красный цвет для головы
+            } else {
+                gc.setFill(Color.GOLDENROD);  // Зеленый цвет для остальных сегментов
+            }
+
+            isHead=false;
+
+            gc.fillRect(segment.getX() * TILE_SIZE , segment.getY() * TILE_SIZE, TILE_SIZE - 2, TILE_SIZE - 2);
+
         }
 
+
         // Draw Food
-        gc.setFill(Color.RED);
-        gc.fillRect(food.getX() * TILE_SIZE, food.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        gc.setStroke(Color.RED);
+        gc.setLineWidth(1);
+        gc.strokeRect(food.getX() * TILE_SIZE, food.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
+
+        gc.setFill(Color.GOLDENROD);
+        gc.fillRect(food.getX() * TILE_SIZE, food.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
 
         // Draw Score
         gc.setFill(Color.BLACK);
-        gc.fillText("Score: " + score, 10, 15);
+        gc.fillText("Score : " + score, 10, 15);
     }
 
     private void showGameOverAlert() {

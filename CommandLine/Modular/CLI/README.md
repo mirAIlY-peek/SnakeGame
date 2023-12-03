@@ -1,6 +1,6 @@
 ### Windows - Snake
 
-follow this code on windows:
+follow this code on windows
 
     cd CommandLine\Modular\CLI\hellofx
     set PATH_TO_FX="path\to\javafx-sdk-13\lib"
