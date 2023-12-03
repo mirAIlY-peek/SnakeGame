@@ -132,16 +132,16 @@ public class HelloFX extends Application {
     private void handleKeyPress(KeyCode code) {
 
         switch (code) {
-            case UP:
+            case W:
                 direction = Direction.UP;
                 break;
-            case DOWN:
+            case S:
                 direction = Direction.DOWN;
                 break;
-            case LEFT:
+            case A:
                 direction = Direction.LEFT;
                 break;
-            case RIGHT:
+            case D:
                 direction = Direction.RIGHT;
                 break;
             default:
