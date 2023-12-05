@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 
-public class HelloFX extends Application {
+public class Game extends Application {
     private static final int TILE_SIZE = 20;
     private static final int GRID_SIZE = 30;
     private static int SPEED = 10;
@@ -25,7 +25,9 @@ public class HelloFX extends Application {
     private boolean gameOver;
     private int score;
     private int main;
+    private KeyCode rememberKeyCode = KeyCode.A;
 
+    //launch the application Sneak
     public static void main(String[] args) {
         launch(args);
     }
@@ -33,14 +35,15 @@ public class HelloFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         snake = new LinkedList<>();
-        direction = Direction.UP;
+        direction = Direction.RIGHT;
+
         gameOver = false;
-        score = 0;
+        score = 0; //score
 
         createSnake();
-        spawnFood();
+        spownFood();
 
-        Canvas canvas = new Canvas(GRID_SIZE * TILE_SIZE, GRID_SIZE * TILE_SIZE);
+        Canvas canvas = new Canvas(GRID_SIZE * TILE_SIZE, GRID_SIZE * TILE_SIZE); //Создание холста
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         StackPane root = new StackPane(canvas);
@@ -55,8 +58,10 @@ public class HelloFX extends Application {
             public void handle(long now) {
                 if (now - lastUpdate >= 1_000_000_000 / SPEED) {
                     if (!gameOver) {
+
                         updateGame();
                         render(gc);
+
                     }
                     lastUpdate = now;
                 }
@@ -68,6 +73,9 @@ public class HelloFX extends Application {
         primaryStage.show();
     }
 
+
+
+
     private void createSnake() {
         snake.clear();
         snake.add(new Coordinate(GRID_SIZE / 2, GRID_SIZE / 2));
@@ -75,7 +83,7 @@ public class HelloFX extends Application {
         snake.add(new Coordinate(GRID_SIZE / 2 - 2, GRID_SIZE / 2));
     }
 
-    private void spawnFood() {
+    private void spownFood() {
         Random random = new Random();
         int x, y;
         do {
@@ -100,7 +108,7 @@ public class HelloFX extends Application {
         if (!snake.contains(food)) {
             snake.removeLast();
         } else {
-            spawnFood();
+            spownFood();
             score++;
             System.out.println("Score : " + score);
             SPEED++;
@@ -120,7 +128,7 @@ public class HelloFX extends Application {
     private void checkFood() {
         if (snake.getFirst().equals(food)) {
 
-            spawnFood();
+            spownFood();
 
         }
 
@@ -130,16 +138,28 @@ public class HelloFX extends Application {
 
         switch (code) {
             case W:
-                direction = Direction.UP;
+                if(rememberKeyCode != code) {
+                    direction = Direction.UP;
+                    rememberKeyCode=KeyCode.S;
+                }
                 break;
             case S:
-                direction = Direction.DOWN;
+                if(rememberKeyCode!= code){
+                    direction = Direction.DOWN;
+                    rememberKeyCode=KeyCode.W;
+                }
                 break;
             case A:
-                direction = Direction.LEFT;
+                if(rememberKeyCode != code){
+                    direction = Direction.LEFT;
+                    rememberKeyCode=KeyCode.D;
+                }
                 break;
             case D:
-                direction = Direction.RIGHT;
+                if(rememberKeyCode != code){
+                    direction = Direction.RIGHT;
+                    rememberKeyCode=KeyCode.A;
+                }
                 break;
             default:
                 break;
@@ -149,7 +169,7 @@ public class HelloFX extends Application {
     private void render(GraphicsContext gc) {
         gc.clearRect(0, 0, GRID_SIZE * TILE_SIZE, GRID_SIZE * TILE_SIZE);
 
-        // Draw Snake
+
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
@@ -159,8 +179,6 @@ public class HelloFX extends Application {
 
             gc.strokeRect(segment.getX() * TILE_SIZE, segment.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
 
-
-            // Рисуем прямоугольник для каждого сегмента с заливкой
             if (isHead) {
                 gc.setFill(Color.RED);  // Красный цвет для головы
             } else {
@@ -174,15 +192,14 @@ public class HelloFX extends Application {
         }
 
 
-        // Draw Food
+
         gc.setStroke(Color.RED);
-        gc.setLineWidth(1);
+        gc.setLineWidth(3);
         gc.strokeRect(food.getX() * TILE_SIZE, food.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
 
         gc.setFill(Color.GOLDENROD);
         gc.fillRect(food.getX() * TILE_SIZE, food.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
 
-        // Draw Score
         gc.setFill(Color.BLACK);
         gc.fillText("Score : " + score, 10, 15);
     }
@@ -200,7 +217,7 @@ public class HelloFX extends Application {
 
     private void resetGame() {
         createSnake();
-        spawnFood();
+        spownFood();
         direction = Direction.RIGHT;
         gameOver = false;
         score = 0;

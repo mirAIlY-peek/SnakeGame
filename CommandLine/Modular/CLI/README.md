@@ -9,4 +9,4 @@ follow this code on windows
 
 run:
     
-    java --module-path "%PATH_TO_FX%;mods" -m hellofx/hellofx.HelloFX
+    java --module-path "%PATH_TO_FX%;mods" -m hellofx/hellofx.Game
