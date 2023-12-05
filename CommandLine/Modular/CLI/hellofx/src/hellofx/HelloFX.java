@@ -1,4 +1,5 @@
 package hellofx;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,8 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.util.LinkedList;
 import java.util.Random;
-
-
 
 
 public class HelloFX extends Application {
@@ -89,7 +88,7 @@ public class HelloFX extends Application {
 
     private void updateGame() {
         moveSnake();
-        checkCollision();
+        intersects();
         checkFood();
     }
 
@@ -108,7 +107,7 @@ public class HelloFX extends Application {
         }
     }
 
-    private void checkCollision() {
+    private void intersects() {
         Coordinate head = snake.getFirst();
 
         if (head.getX() < 0 || head.getX() >= GRID_SIZE || head.getY() < 0 || head.getY() >= GRID_SIZE
@@ -120,6 +119,7 @@ public class HelloFX extends Application {
 
     private void checkFood() {
         if (snake.getFirst().equals(food)) {
+
             spawnFood();
 
         }
