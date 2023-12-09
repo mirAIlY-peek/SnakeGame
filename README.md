@@ -10,3 +10,7 @@ follow this code on windows
 run:
     
     java --module-path "%PATH_TO_FX%;mods" -m hellofx/hellofx.HelloFX
+
+or you can download my game in :
+    
+    https://github.com/mirAIlY-peek/SnakeGame
