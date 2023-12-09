@@ -8,8 +8,8 @@ follow this code on windows
     dir /s /b src\*.java > sources.txt & javac --module-path %PATH_TO_FX% -d mods/hellofx @sources.txt & del sources.txt
 
 run:
-    
-    java --module-path "%PATH_TO_FX%;mods" -m hellofx/hellofx.HelloFX
+
+    java --module-path "%PATH_TO_FX%;mods" -m hellofx/hellofx.Game
 
 or you can download my game in :
     
