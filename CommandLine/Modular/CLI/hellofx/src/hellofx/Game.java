@@ -1,5 +1,4 @@
 package hellofx;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,8 +14,8 @@ import java.util.Random;
 
 
 public class Game extends Application {
-    private static final int TILE_SIZE = 20;
-    private static final int GRID_SIZE = 30;
+    private static final int tile_SIZE = 20;
+    private static final int grid_Size = 30;
     private static int SPEED = 10;
 
     private LinkedList<Coordinate> snake;
@@ -43,11 +42,11 @@ public class Game extends Application {
         createSnake();
         spownFood();
 
-        Canvas canvas = new Canvas(GRID_SIZE * TILE_SIZE, GRID_SIZE * TILE_SIZE); //Создание холста
+        Canvas canvas = new Canvas(grid_Size * tile_SIZE, grid_Size * tile_SIZE);// это холст
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         StackPane root = new StackPane(canvas);
-        Scene scene = new Scene(root, GRID_SIZE * TILE_SIZE, GRID_SIZE * TILE_SIZE);
+        Scene scene = new Scene(root, grid_Size * tile_SIZE, grid_Size * tile_SIZE);
 
         scene.setOnKeyPressed(event -> handleKeyPress(event.getCode()));
 
@@ -78,17 +77,17 @@ public class Game extends Application {
 
     private void createSnake() {
         snake.clear();
-        snake.add(new Coordinate(GRID_SIZE / 2, GRID_SIZE / 2));
-        snake.add(new Coordinate(GRID_SIZE / 2 - 1, GRID_SIZE / 2));
-        snake.add(new Coordinate(GRID_SIZE / 2 - 2, GRID_SIZE / 2));
+        snake.add(new Coordinate(grid_Size / 2, grid_Size / 2));
+        snake.add(new Coordinate(grid_Size / 2 - 1, grid_Size / 2));
+        snake.add(new Coordinate(grid_Size / 2 - 2, grid_Size / 2));
     }
 
     private void spownFood() {
         Random random = new Random();
         int x, y;
         do {
-            x = random.nextInt(GRID_SIZE);
-            y = random.nextInt(GRID_SIZE);
+            x = random.nextInt(grid_Size);
+            y = random.nextInt(grid_Size);
         } while (snake.contains(new Coordinate(x, y)));
 
         food = new Coordinate(x, y);
@@ -118,7 +117,7 @@ public class Game extends Application {
     private void intersects() {
         Coordinate head = snake.getFirst();
 
-        if (head.getX() < 0 || head.getX() >= GRID_SIZE || head.getY() < 0 || head.getY() >= GRID_SIZE
+        if (head.getX() < 0 || head.getX() >= grid_Size || head.getY() < 0 || head.getY() >= grid_Size
                 || snake.subList(1, snake.size()).contains(head)) {
             gameOver = true;
             showGameOverAlert();
@@ -166,42 +165,42 @@ public class Game extends Application {
         }
     }
 
-    private void render(GraphicsContext gc) {
-        gc.clearRect(0, 0, GRID_SIZE * TILE_SIZE, GRID_SIZE * TILE_SIZE);
+    private void render(GraphicsContext draw) {
+        draw.clearRect(0, 0, grid_Size * tile_SIZE, grid_Size * tile_SIZE);
 
 
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(1);
+        draw.setStroke(Color.BLACK);
+        draw.setLineWidth(1);
 
         boolean isHead = true;
 
-        for (Coordinate segment : snake) {
+        for (Coordinate body : snake) {
 
-            gc.strokeRect(segment.getX() * TILE_SIZE, segment.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
+            draw.strokeRect(body.getX() * tile_SIZE, body.getY() * tile_SIZE, tile_SIZE-2, tile_SIZE-2);
 
             if (isHead) {
-                gc.setFill(Color.RED);  // Красный цвет для головы
+                draw.setFill(Color.RED);  //головы змею здесь
             } else {
-                gc.setFill(Color.GOLDENROD);  // Зеленый цвет для остальных сегментов
+                draw.setFill(Color.GOLDENROD);  // зеленый цвет дя тела
             }
 
             isHead=false;
 
-            gc.fillRect(segment.getX() * TILE_SIZE , segment.getY() * TILE_SIZE, TILE_SIZE - 2, TILE_SIZE - 2);
+            draw.fillRect(body.getX() * tile_SIZE , body.getY() * tile_SIZE, tile_SIZE - 2, tile_SIZE - 2);
 
         }
 
 
 
-        gc.setStroke(Color.RED);
-        gc.setLineWidth(3);
-        gc.strokeRect(food.getX() * TILE_SIZE, food.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
+        draw.setStroke(Color.RED);
+        draw.setLineWidth(3);
+        draw.strokeRect(food.getX() * tile_SIZE, food.getY() * tile_SIZE, tile_SIZE-2, tile_SIZE-2);
 
-        gc.setFill(Color.GOLDENROD);
-        gc.fillRect(food.getX() * TILE_SIZE, food.getY() * TILE_SIZE, TILE_SIZE-2, TILE_SIZE-2);
+        draw.setFill(Color.GOLDENROD);
+        draw.fillRect(food.getX() * tile_SIZE, food.getY() * tile_SIZE, tile_SIZE-2, tile_SIZE-2);
 
-        gc.setFill(Color.BLACK);
-        gc.fillText("Score : " + score, 10, 15);
+        draw.setFill(Color.BLACK);
+        draw.fillText("Score : " + score, 10, 15);
     }
 
     private void showGameOverAlert() {
@@ -234,11 +233,15 @@ public class Game extends Application {
         }
 
         public int getX() {
+
             return x;
+
         }
 
         public int getY() {
+
             return y;
+
         }
 
         @Override
